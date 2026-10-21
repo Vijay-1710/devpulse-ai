@@ -1,0 +1,23 @@
+{
+  "name": "devpulse-ai",
+  "version": "2.4.0",
+  "description": "Autonomous Pull Request Code Health & Security Audit Studio - Built for Hackathons",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve . -l 3000",
+    "dev": "npx -y serve . -l 3000"
+  },
+  "keywords": [
+    "hackathon",
+    "code-review",
+    "security-audit",
+    "pull-request",
+    "static-analysis",
+    "devops",
+    "ast-parser",
+    "owasp",
+    "cybersecurity"
+  ],
+  "author": "Vijay-1710",
+  "license": "MIT"
+}

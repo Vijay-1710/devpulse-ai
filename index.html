@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevPulse AI - Automated Code Health & Intelligent PR Review Studio</title>
+  <meta name="description" content="Next-generation AI-powered pull request auditor. Real-time security scanning, Big-O complexity analysis, interactive code diffs, and automated PR summaries for modern engineering teams.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <div class="background-mesh" aria-hidden="true"></div>
+
+  <!-- Main Navigation -->
+  <header class="app-header" id="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="logo-wrapper">
+          <img src="assets/logo.jpg" alt="DevPulse AI Logo" class="brand-logo" id="brand-logo-img">
+          <span class="logo-glow"></span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">DevPulse <span class="highlight-ai">AI</span></span>
+          <span class="badge-version">v2.4 Hackathon Edition</span>
+        </div>
+      </div>
+
+      <nav class="nav-links" id="main-nav">
+        <a href="#audit-station" class="nav-item active" id="nav-audit-link">PR Review Studio</a>
+        <a href="#metrics-section" class="nav-item" id="nav-metrics-link">Health Metrics</a>
+        <a href="#vulnerabilities-section" class="nav-item" id="nav-vuln-link">Vulnerability Matrix</a>
+        <a href="#playground-section" class="nav-item" id="nav-sandbox-link">Live Sandbox</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="system-status" id="system-status" title="Realtime Analysis Engine Status">
+          <span class="status-dot"></span>
+          <span class="status-label">Engine Online (12ms)</span>
+        </div>
+        <button class="sound-toggle-btn" id="sound-toggle-btn" title="Toggle Sound FX" aria-label="Toggle Sound FX">
+          <svg class="sound-icon" id="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+        <button class="btn btn-secondary" id="export-report-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export Report
+        </button>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="github-sync-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          Sync Repository
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <span class="pill-badge">HACKATHON SPOTLIGHT</span>
+          <span class="pill-text">Autonomous Pull Request Governance & Security Intelligence</span>
+        </div>
+        <h1 class="hero-title">Audit Pull Requests with <span class="gradient-text">Zero Compromises</span>.</h1>
+        <p class="hero-subtitle">
+          DevPulse AI turns code reviews from a bottleneck into an instant, high-confidence superpower. Catch critical CVEs, eliminate algorithmic regressions, and apply one-click self-healing patches before hitting merge.
+        </p>
+
+        <div class="hero-stats-strip">
+          <div class="stat-card">
+            <span class="stat-number" id="stat-prs-count">1,842</span>
+            <span class="stat-label">PRs Analyzed</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number text-accent-cyan" id="stat-vulns-count">739</span>
+            <span class="stat-label">CVEs Prevented</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number text-accent-green" id="stat-latency-val">0.38s</span>
+            <span class="stat-label">Mean Scan Time</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number text-accent-purple" id="stat-savings-val">94.8%</span>
+            <span class="stat-label">Review Time Saved</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="banner-frame">
+          <img src="assets/banner.jpg" alt="DevPulse AI Platform Preview" class="hero-banner-image" id="hero-banner-img">
+          <div class="banner-overlay-card">
+            <div class="pulse-radar">
+              <span class="radar-circle"></span>
+              <span class="radar-dot"></span>
+            </div>
+            <div>
+              <div class="radar-title">Neural Engine Active</div>
+              <div class="radar-desc">Scanning branch: <span class="branch-tag">feat/auth-hardening</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive PR Audit Station -->
+  <main class="main-content" id="main-content">
+    <section class="audit-station" id="audit-station">
+      <div class="station-header">
+        <div class="station-titles">
+          <div class="section-tag">AUDIT STUDIO</div>
+          <h2 class="section-title">Select or Inspect a Pull Request</h2>
+          <p class="section-desc">Choose from curated open-source scenarios or run custom code through our neural audit engine.</p>
+        </div>
+
+        <div class="pr-preset-selector" role="tablist" aria-label="PR Presets">
+          <button class="pr-tab active" id="tab-pr-1" role="tab" aria-selected="true" data-preset="security">
+            <span class="tab-indicator critical"></span>
+            <span class="tab-text">
+              <strong class="tab-pr-id">PR #142</strong>
+              <span class="tab-pr-title">Auth Token Leak & SQL Injection</span>
+            </span>
+            <span class="tab-tag tag-critical">2 Vulnerabilities</span>
+          </button>
+
+          <button class="pr-tab" id="tab-pr-2" role="tab" aria-selected="false" data-preset="performance">
+            <span class="tab-indicator warning"></span>
+            <span class="tab-text">
+              <strong class="tab-pr-id">PR #89</strong>
+              <span class="tab-pr-title">Vector Search O(N²) Bottleneck</span>
+            </span>
+            <span class="tab-tag tag-warning">Perf Bottleneck</span>
+          </button>
+
+          <button class="pr-tab" id="tab-pr-3" role="tab" aria-selected="false" data-preset="modern">
+            <span class="tab-indicator safe"></span>
+            <span class="tab-text">
+              <strong class="tab-pr-id">PR #215</strong>
+              <span class="tab-pr-title">Async Stream Pipeline & Resilience</span>
+            </span>
+            <span class="tab-tag tag-safe">Ready to Merge</span>
+          </button>
+
+          <button class="pr-tab custom-tab" id="tab-pr-custom" role="tab" aria-selected="false" data-preset="custom">
+            <span class="tab-indicator custom"></span>
+            <span class="tab-text">
+              <strong class="tab-pr-id">Custom</strong>
+              <span class="tab-pr-title">Paste Custom Code / Diff</span>
+            </span>
+            <span class="tab-tag tag-custom">Interactive</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Audit Overview Dashboard Bar -->
+      <div class="audit-scorecard" id="audit-scorecard">
+        <div class="score-card main-health-card">
+          <div class="gauge-container">
+            <svg class="score-ring" viewBox="0 0 120 120" id="health-ring-svg">
+              <circle class="ring-track" cx="60" cy="60" r="50"></circle>
+              <circle class="ring-progress" id="health-ring-progress" cx="60" cy="60" r="50"></circle>
+            </svg>
+            <div class="gauge-center">
+              <span class="gauge-value" id="health-score-val">68%</span>
+              <span class="gauge-label">Health</span>
+            </div>
+          </div>
+          <div class="score-details">
+            <div class="score-status-title" id="health-status-title">High Risk Detected</div>
+            <div class="score-status-desc" id="health-status-desc">Critical security credentials exposed in commit history. Patch required before merge approval.</div>
+            <div class="score-pills">
+              <span class="pill pill-danger" id="pill-security-state">Security Alert</span>
+              <span class="pill pill-neutral" id="pill-files-count">3 Files Changed</span>
+              <span class="pill pill-neutral" id="pill-diff-stats">+48 / -19 lines</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="score-card metric-mini-card">
+          <div class="metric-icon metric-purple">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <div class="mini-metric-info">
+            <span class="mini-label">Algorithmic Complexity</span>
+            <span class="mini-val" id="complexity-val">O(1) Constant</span>
+            <span class="mini-subtext text-accent-green" id="complexity-sub">Optimal execution path</span>
+          </div>
+        </div>
+
+        <div class="score-card metric-mini-card">
+          <div class="metric-icon metric-cyan">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="mini-metric-info">
+            <span class="mini-label">Test Suite Delta</span>
+            <span class="mini-val" id="test-delta-val">+18.5%</span>
+            <span class="mini-subtext text-accent-green" id="test-delta-sub">14 new unit assertions</span>
+          </div>
+        </div>
+
+        <div class="score-card metric-mini-card">
+          <div class="metric-icon metric-rose">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="mini-metric-info">
+            <span class="mini-label">Merge Verdict</span>
+            <span class="mini-val text-accent-rose" id="merge-verdict-val">Blocked</span>
+            <span class="mini-subtext" id="merge-verdict-sub">Resolve 2 CVEs first</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Workspace: Split Screen for Diff & Intelligence Panel -->
+      <div class="workspace-grid" id="workspace-grid">
+        
+        <!-- Left Panel: Interactive Code Diff Viewer -->
+        <div class="code-diff-card" id="diff-card">
+          <div class="diff-header">
+            <div class="diff-file-info">
+              <span class="file-icon">📄</span>
+              <span class="file-path" id="diff-file-path">src/auth/jwt-service.ts</span>
+              <span class="file-badge" id="diff-language-badge">TypeScript</span>
+            </div>
+            <div class="diff-view-controls">
+              <button class="btn-icon active" id="btn-view-unified" title="Unified Diff View">Unified</button>
+              <button class="btn-icon" id="btn-view-split" title="Split Diff View">Split</button>
+              <button class="btn-action-sm btn-patch-all" id="btn-apply-all-patches">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+                Apply AI Auto-Patch
+              </button>
+            </div>
+          </div>
+
+          <div class="diff-editor-container" id="diff-editor-container">
+            <div class="diff-code-table" id="diff-table">
+              <!-- Dynamically rendered diff lines and inline comments go here -->
+            </div>
+          </div>
+
+          <div class="diff-footer">
+            <div class="diff-stats" id="diff-footer-stats">
+              <span class="diff-additions">+24 additions</span>
+              <span class="diff-deletions">-12 deletions</span>
+            </div>
+            <div class="diff-tip">💡 Click on any inline AI review pill to preview suggested patch reasoning</div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Intelligence Tabs (Security, Review Commentary, Complexity, PR Summary) -->
+        <div class="intelligence-card" id="intelligence-card">
+          <div class="intel-tabs" role="tablist">
+            <button class="intel-tab active" id="intel-tab-vuln" data-tab="vuln">
+              Security Matrix (<span id="vuln-tab-count">2</span>)
+            </button>
+            <button class="intel-tab" id="intel-tab-comments" data-tab="comments">
+              AI Code Comments (<span id="comments-tab-count">3</span>)
+            </button>
+            <button class="intel-tab" id="intel-tab-summary" data-tab="summary">
+              PR Summary
+            </button>
+            <button class="intel-tab" id="intel-tab-bench" data-tab="bench">
+              Benchmarks
+            </button>
+          </div>
+
+          <div class="intel-content-body" id="intel-content-body">
+            <!-- Tab Pane 1: Vulnerabilities -->
+            <div class="intel-pane active" id="pane-vuln">
+              <div class="vuln-list" id="vuln-list-container">
+                <!-- Dynamically rendered vulnerability items -->
+              </div>
+            </div>
+
+            <!-- Tab Pane 2: Inline AI Code Comments -->
+            <div class="intel-pane" id="pane-comments">
+              <div class="comments-stream" id="comments-stream-container">
+                <!-- Dynamically rendered review commentary -->
+              </div>
+            </div>
+
+            <!-- Tab Pane 3: Generated PR Summary -->
+            <div class="intel-pane" id="pane-summary">
+              <div class="pr-summary-wrapper">
+                <div class="summary-top-bar">
+                  <span class="summary-title">Auto-Generated PR Description (GitHub Flavored Markdown)</span>
+                  <button class="btn btn-secondary btn-sm" id="btn-copy-summary">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span id="copy-summary-text">Copy Markdown</span>
+                  </button>
+                </div>
+                <div class="markdown-preview" id="markdown-pr-preview">
+                  <!-- Formatted PR description markdown preview -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Pane 4: Benchmarks & Complexity -->
+            <div class="intel-pane" id="pane-bench">
+              <div class="benchmarks-container">
+                <div class="bench-card">
+                  <div class="bench-header">
+                    <span class="bench-label">Algorithmic Efficiency Curve</span>
+                    <span class="bench-badge" id="bench-efficiency-badge">O(1) vs O(N)</span>
+                  </div>
+                  <div class="bench-chart-visual" id="bench-chart-container">
+                    <div class="chart-bar-group">
+                      <div class="chart-bar bar-before" style="height: 75%;" title="Before: 420ms"></div>
+                      <span class="chart-caption">Previous (420ms)</span>
+                    </div>
+                    <div class="chart-bar-group">
+                      <div class="chart-bar bar-after" style="height: 18%;" title="After Patch: 24ms"></div>
+                      <span class="chart-caption">Optimized (24ms)</span>
+                    </div>
+                  </div>
+                  <p class="bench-desc" id="bench-desc-text">Algorithmic latency reduced by 94.2% by replacing nested collection iterations with a hash-mapped lookup.</p>
+                </div>
+
+                <div class="bench-metrics-row">
+                  <div class="bench-stat-box">
+                    <span class="stat-box-val text-accent-green" id="bench-bundle-delta">-14.2 KB</span>
+                    <span class="stat-box-lbl">Bundle Weight Impact</span>
+                  </div>
+                  <div class="bench-stat-box">
+                    <span class="stat-box-val text-accent-cyan" id="bench-memory-delta">-32 MB</span>
+                    <span class="stat-box-lbl">Heap Allocation Delta</span>
+                  </div>
+                  <div class="bench-stat-box">
+                    <span class="stat-box-val text-accent-purple" id="bench-p99-delta">8ms</span>
+                    <span class="stat-box-lbl">P99 Server Response</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Live Sandbox Section -->
+    <section class="sandbox-section" id="playground-section">
+      <div class="section-header-centered">
+        <div class="section-tag">CUSTOM AUDIT SANDBOX</div>
+        <h2 class="section-title">Live Code & Diff Playground</h2>
+        <p class="section-desc">Type, paste, or test any code snippet to watch the neural analyzer parse ASTs, detect CVE patterns, and output auto-patches in real time.</p>
+      </div>
+
+      <div class="sandbox-wrapper">
+        <div class="sandbox-controls">
+          <div class="sandbox-controls-left">
+            <label for="sandbox-lang-select" class="control-label">Language:</label>
+            <select id="sandbox-lang-select" class="form-select">
+              <option value="javascript">JavaScript / Node.js</option>
+              <option value="typescript" selected>TypeScript</option>
+              <option value="python">Python</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+            </select>
+            <button class="btn-preset-snippet" id="btn-load-sample-leak">Load Token Leak Sample</button>
+            <button class="btn-preset-snippet" id="btn-load-sample-sqli">Load SQL Injection Sample</button>
+            <button class="btn-preset-snippet" id="btn-load-sample-loop">Load Infinite Loop Sample</button>
+          </div>
+
+          <button class="btn btn-primary" id="btn-run-sandbox-audit">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Run Neural Audit
+          </button>
+        </div>
+
+        <div class="sandbox-editor-split">
+          <div class="editor-pane">
+            <div class="editor-pane-header">
+              <span>Input Code / Git Patch</span>
+              <span class="editor-indicator">Live Input</span>
+            </div>
+            <textarea id="sandbox-code-input" class="code-textarea" spellcheck="false" placeholder="// Paste any function, pull request snippet, or git diff here..."></textarea>
+          </div>
+
+          <div class="editor-pane">
+            <div class="editor-pane-header">
+              <span>Real-Time Audit Console</span>
+              <span class="audit-status-badge" id="sandbox-audit-status">Ready</span>
+            </div>
+            <div class="sandbox-output-console" id="sandbox-output-console">
+              <div class="console-placeholder">
+                <div class="console-icon">⚡</div>
+                <div class="console-text">Press "Run Neural Audit" or edit code to trigger real-time AST heuristics and security evaluation.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Export Report Modal -->
+  <div class="modal-backdrop" id="export-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">📊</span>
+          <h3 class="modal-title">Export Comprehensive PR Audit Report</h3>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-desc">Generate an audit artifact for your team, hackathon judges, or CI/CD compliance registry.</p>
+        <div class="export-options-grid">
+          <div class="export-option-card active" id="export-opt-md" data-format="markdown">
+            <div class="export-opt-icon">📝</div>
+            <div class="export-opt-title">GitHub Markdown</div>
+            <div class="export-opt-desc">Ready to paste into GitHub PRs, issues, or release notes.</div>
+          </div>
+          <div class="export-option-card" id="export-opt-json" data-format="json">
+            <div class="export-opt-icon">⚙️</div>
+            <div class="export-opt-title">Structured JSON</div>
+            <div class="export-opt-desc">Machine-readable data for CI pipelines, SARIF, and dashboards.</div>
+          </div>
+        </div>
+
+        <div class="modal-preview-box">
+          <pre><code id="export-preview-content">Loading audit report summary...</code></pre>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-cancel-btn">Close</button>
+        <button class="btn btn-primary" id="modal-download-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download Report
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-title">DevPulse <span class="highlight-ai">AI</span></span>
+        <p class="footer-tagline">Open-Source Code Governance & Intelligent Pull Request Security Platform.</p>
+      </div>
+      <div class="footer-meta">
+        <span>Built for Hackathons & High-Impact Engineering</span>
+        <span class="footer-dot">•</span>
+        <span>Zero External Dependencies Required</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
