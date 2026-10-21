@@ -45,6 +45,14 @@
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
           </svg>
         </button>
+        <button class="palette-trigger-btn" id="palette-trigger-btn" title="Open Command Palette (Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Commands</span>
+          <kbd class="kbd-hint">Ctrl K</kbd>
+        </button>
         <button class="btn btn-secondary" id="export-report-btn">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -496,6 +504,84 @@
           </svg>
           Download Report
         </button>
+      </div>
+    </div>
+  <!-- Universal Cyber Command Palette (Ctrl+K) -->
+  <div class="modal-backdrop command-palette-backdrop" id="command-palette-modal" aria-hidden="true">
+    <div class="command-palette-card">
+      <div class="palette-input-wrapper">
+        <svg class="palette-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="palette-search-input" class="palette-input" placeholder="Type a command or search actions... (ESC to exit)" autocomplete="off">
+        <span class="palette-kbd">ESC</span>
+      </div>
+      <div class="palette-results" id="palette-results-list">
+        <div class="palette-group-title">QUICK ACTIONS</div>
+        <div class="palette-item active" data-action="patch">
+          <span class="palette-icon">🪄</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Apply AI Auto-Patch</span>
+            <span class="palette-item-desc">Remediate vulnerable AST patterns & re-audit PR</span>
+          </div>
+          <span class="palette-shortcut">Ctrl+P</span>
+        </div>
+        <div class="palette-item" data-action="export">
+          <span class="palette-icon">📊</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Export Audit Report</span>
+            <span class="palette-item-desc">Download as Markdown or structured JSON artifact</span>
+          </div>
+          <span class="palette-shortcut">Ctrl+E</span>
+        </div>
+        <div class="palette-item" data-action="split-view">
+          <span class="palette-icon">🔀</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Toggle Split / Unified Diff</span>
+            <span class="palette-item-desc">Switch code reviewer layout</span>
+          </div>
+          <span class="palette-shortcut">Ctrl+D</span>
+        </div>
+
+        <div class="palette-group-title">PR PRESETS</div>
+        <div class="palette-item" data-action="preset-security">
+          <span class="palette-icon">🛡️</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Switch to PR #142 (Security CVE)</span>
+            <span class="palette-item-desc">Hardcoded JWT secret & SQL injection</span>
+          </div>
+          <span class="palette-badge-tag tag-critical">High Risk</span>
+        </div>
+        <div class="palette-item" data-action="preset-performance">
+          <span class="palette-icon">⚡</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Switch to PR #89 (Performance)</span>
+            <span class="palette-item-desc">Vector similarity search O(N²) loop bottleneck</span>
+          </div>
+          <span class="palette-badge-tag tag-warning">Bottleneck</span>
+        </div>
+        <div class="palette-item" data-action="preset-modern">
+          <span class="palette-icon">✅</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Switch to PR #215 (Architecture)</span>
+            <span class="palette-item-desc">Stream pipeline with fault-tolerant circuit breaker</span>
+          </div>
+          <span class="palette-badge-tag tag-safe">Ready</span>
+        </div>
+        <div class="palette-item" data-action="jump-sandbox">
+          <span class="palette-icon">🧪</span>
+          <div class="palette-text-group">
+            <span class="palette-item-title">Open Custom Code Sandbox</span>
+            <span class="palette-item-desc">Run instant neural AST audits on custom code</span>
+          </div>
+          <span class="palette-shortcut">Ctrl+S</span>
+        </div>
+      </div>
+      <div class="palette-footer">
+        <span>Navigate <kbd>↑</kbd> <kbd>↓</kbd></span>
+        <span>Select <kbd>↵ Enter</kbd></span>
+        <span>Close <kbd>ESC</kbd></span>
       </div>
     </div>
   </div>

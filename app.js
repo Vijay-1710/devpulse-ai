@@ -1112,6 +1112,161 @@ ${prData.body || 'No description body.'}`);
       sfx.playClick();
       showToast('GitHub Webhook & Actions Sync connected!', 'success');
     });
+
+    // --- Command Palette Logic ---
+    const commandPaletteModal = document.getElementById('command-palette-modal');
+    const paletteSearchInput = document.getElementById('palette-search-input');
+    const paletteTriggerBtn = document.getElementById('palette-trigger-btn');
+    const paletteItems = Array.from(document.querySelectorAll('.palette-item'));
+
+    function openCommandPalette() {
+      sfx.playClick();
+      commandPaletteModal.classList.add('open');
+      paletteSearchInput.value = '';
+      filterPaletteItems('');
+      paletteSearchInput.focus();
+    }
+
+    function closeCommandPalette() {
+      commandPaletteModal.classList.remove('open');
+    }
+
+    function filterPaletteItems(query) {
+      const q = query.toLowerCase().trim();
+      let firstVisible = null;
+      paletteItems.forEach(item => {
+        const title = item.querySelector('.palette-item-title').textContent.toLowerCase();
+        const desc = item.querySelector('.palette-item-desc').textContent.toLowerCase();
+        const matches = !q || title.includes(q) || desc.includes(q);
+        item.style.display = matches ? 'flex' : 'none';
+        if (matches && !firstVisible) {
+          firstVisible = item;
+        }
+      });
+      paletteItems.forEach(i => i.classList.remove('active'));
+      if (firstVisible) firstVisible.classList.add('active');
+    }
+
+    function executePaletteAction(action) {
+      closeCommandPalette();
+      sfx.playClick();
+
+      switch (action) {
+        case 'patch':
+          applyAutoPatch();
+          break;
+        case 'export':
+          updateExportPreview();
+          exportModal.classList.add('open');
+          break;
+        case 'split-view':
+          btnViewSplit.click();
+          break;
+        case 'preset-security':
+          loadPreset('security');
+          break;
+        case 'preset-performance':
+          loadPreset('performance');
+          break;
+        case 'preset-modern':
+          loadPreset('modern');
+          break;
+        case 'jump-sandbox':
+          document.getElementById('playground-section').scrollIntoView({ behavior: 'smooth' });
+          showToast('Switched to Custom Code Sandbox', 'info');
+          break;
+      }
+    }
+
+    paletteTriggerBtn.addEventListener('click', openCommandPalette);
+
+    paletteSearchInput.addEventListener('input', (e) => {
+      filterPaletteItems(e.target.value);
+    });
+
+    paletteItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const action = item.getAttribute('data-action');
+        executePaletteAction(action);
+      });
+    });
+
+    // Global Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      const isInput = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
+
+      // Ctrl+K or Cmd+K
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (commandPaletteModal.classList.contains('open')) {
+          closeCommandPalette();
+        } else {
+          openCommandPalette();
+        }
+        return;
+      }
+
+      // ESC to close any modal
+      if (e.key === 'Escape') {
+        closeCommandPalette();
+        exportModal.classList.remove('open');
+        return;
+      }
+
+      // Inside Palette navigation
+      if (commandPaletteModal.classList.contains('open')) {
+        const visibleItems = paletteItems.filter(i => i.style.display !== 'none');
+        const activeIdx = visibleItems.findIndex(i => i.classList.contains('active'));
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextIdx = (activeIdx + 1) % visibleItems.length;
+          visibleItems.forEach(i => i.classList.remove('active'));
+          visibleItems[nextIdx]?.classList.add('active');
+          visibleItems[nextIdx]?.scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prevIdx = (activeIdx - 1 + visibleItems.length) % visibleItems.length;
+          visibleItems.forEach(i => i.classList.remove('active'));
+          visibleItems[prevIdx]?.classList.add('active');
+          visibleItems[prevIdx]?.scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          const activeItem = visibleItems[activeIdx] || visibleItems[0];
+          if (activeItem) {
+            executePaletteAction(activeItem.getAttribute('data-action'));
+          }
+        }
+        return;
+      }
+
+      // Global non-input shortcuts
+      if (!isInput) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+          e.preventDefault();
+          applyAutoPatch();
+        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
+          e.preventDefault();
+          updateExportPreview();
+          exportModal.classList.add('open');
+        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') {
+          e.preventDefault();
+          btnViewSplit.click();
+        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+          e.preventDefault();
+          document.getElementById('playground-section').scrollIntoView({ behavior: 'smooth' });
+        } else if (e.key === '?') {
+          e.preventDefault();
+          openCommandPalette();
+        }
+      }
+    });
+
+    commandPaletteModal.addEventListener('click', (e) => {
+      if (e.target === commandPaletteModal) {
+        closeCommandPalette();
+      }
+    });
   }
 
   // --- Initial Load ---
