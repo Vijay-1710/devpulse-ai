@@ -124,6 +124,26 @@
           <p class="section-desc">Choose from curated open-source scenarios or run custom code through our neural audit engine.</p>
         </div>
 
+        <div class="live-pr-fetcher-bar" id="live-pr-fetcher-bar">
+          <div class="fetcher-input-wrapper">
+            <span class="fetcher-icon">🐙</span>
+            <input type="url" id="input-github-pr-url" class="fetcher-input" placeholder="Paste any public GitHub PR (e.g. https://github.com/facebook/react/pull/28123)">
+            <button class="btn btn-primary btn-sm" id="btn-fetch-live-pr">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Inspect Live PR
+            </button>
+          </div>
+          <div class="quick-sample-prs">
+            <span class="sample-label">Try Live:</span>
+            <button class="btn-sample-pr" data-url="https://github.com/facebook/react/pull/28123">React #28123</button>
+            <button class="btn-sample-pr" data-url="https://github.com/vitejs/vite/pull/16000">Vite #16000</button>
+            <button class="btn-sample-pr" data-url="https://github.com/Vijay-1710/devpulse-ai/pull/1">My DevPulse #1</button>
+          </div>
+        </div>
+
         <div class="pr-preset-selector" role="tablist" aria-label="PR Presets">
           <button class="pr-tab active" id="tab-pr-1" role="tab" aria-selected="true" data-preset="security">
             <span class="tab-indicator critical"></span>
