@@ -1267,6 +1267,55 @@ ${prData.body || 'No description body.'}`);
         closeCommandPalette();
       }
     });
+
+    // --- Accent Picker Logic ---
+    const accentPickerDropdown = document.getElementById('accent-picker-dropdown');
+    const accentPickerBtn = document.getElementById('accent-picker-btn');
+    const accentDotPreview = document.getElementById('accent-dot-preview');
+    const accentSwatches = document.querySelectorAll('.accent-swatch');
+
+    const ACCENTS = {
+      cyan: { primary: '#06b6d4', glow: 'rgba(6, 182, 212, 0.35)' },
+      violet: { primary: '#8b5cf6', glow: 'rgba(139, 92, 246, 0.35)' },
+      emerald: { primary: '#10b981', glow: 'rgba(16, 185, 129, 0.35)' },
+      rose: { primary: '#f43f5e', glow: 'rgba(244, 63, 94, 0.35)' },
+      amber: { primary: '#f59e0b', glow: 'rgba(245, 158, 11, 0.35)' }
+    };
+
+    function setAccentColor(colorKey) {
+      const cfg = ACCENTS[colorKey];
+      if (!cfg) return;
+      document.documentElement.style.setProperty('--cyan-primary', cfg.primary);
+      document.documentElement.style.setProperty('--cyan-glow', cfg.glow);
+      accentDotPreview.style.background = cfg.primary;
+      accentDotPreview.style.boxShadow = `0 0 10px ${cfg.primary}`;
+
+      accentSwatches.forEach(s => {
+        s.classList.toggle('active', s.getAttribute('data-color') === colorKey);
+      });
+      sfx.playClick();
+      showToast(`Cyber accent changed to ${colorKey.toUpperCase()}`, 'info');
+    }
+
+    accentPickerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      accentPickerDropdown.classList.toggle('open');
+    });
+
+    accentSwatches.forEach(swatch => {
+      swatch.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const color = swatch.getAttribute('data-color');
+        setAccentColor(color);
+        accentPickerDropdown.classList.remove('open');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!accentPickerDropdown.contains(e.target)) {
+        accentPickerDropdown.classList.remove('open');
+      }
+    });
   }
 
   // --- Initial Load ---
